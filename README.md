@@ -8,14 +8,15 @@ See also: https://github.com/open-policy-agent/gatekeeper
 
 **Note:** if you are deploying to Kubernetes < 1.14 use `--validate=false`. You should be warned, that without timeouts on the webhook, your API Server could timeout when Gatekeeper is down.
 
-**Note:**On ARM
+**Note:** On ARM
 
 Currently there are no ARM images provided by the project so I have to build Gatekeeper for ARM on my own, following the instructions from the website:
 
 ```bash
 export DESTINATION_GATEKEEPER_DOCKER_IMAGE=docker.io/asksven/gatekeeper
+export VERSION=latest
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-make docker-buildx-dev REPOSITORY="$DESTINATION_GATEKEEPER_DOCKER_IMAGE"
+make docker-buildx REPOSITORY="$DESTINATION_GATEKEEPER_DOCKER_IMAGE"
 ```
 
 **Note:** `docker buildx` will push your image at the end, so you need to make sure that `DESTINATION_GATEKEEPER_DOCKER_IMAGE` is something you can push to
